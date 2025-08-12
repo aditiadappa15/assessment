@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <script src="./assign.js" defer></script>
+    <style>
+        .block{
+            text-align: center;
+            background-color: lightskyblue;
+            padding:10px;
+            margin:0;
+            width:100%;
+        }
+        .red-text {
+            color: red;
+        }
+         table{
+             border-collapse:collapse;
+            width:  100%;
+            margin-top: 20px;
+        }
+         th,td{
+            border:1px solid black;
+            padding:8px;
+            text-align: left;
+
+        }
+        tr:hover{
+            background-color: lightcyan;
+        }
+        .a{
+            background-color: rgb(243, 141, 104);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="block">
+    <h1><span>Welcome to </span><span class="red-text">My Website</span></h1>
+        <h4>Advanced HTML ,CSS &JS Example</h4>
+
+    </div>
+    <hr>
+    <p>Click me to change my color! This is <b>more challenging </b> HTML page for students.Famous quote:"Learning never exhausts the mind."Code example:console.log("hello World")  </p>
+    <p>The best way to predict the future is to create it "- Abraham Lincooln</p>
+    <img src=".jh" alt="Dummy Image">
+    <hr>
+    <h2>Student Data Table</h2>
+    <table>
+        <tr>
+        <th>Sno</th>
+        <th>Name</th>
+        <th>Email</th>
+        </tr>
+        <tbody id="fetchdata"></tbody>
+    </table>
+    <hr>
+    <br>
+    <h3>Top Skills</h3>
+    <ul>
+        <li>HTML
+        <ul>
+            <li>Tags</li>
+            <li>Attributes</li>
+            <li>Forms</li>
+        </ul>
+        </li>
+        <li>css
+        <ul>
+            <li>Selectors</li>
+            <li>Box Model</li>
+            <li>Positioning</li>
+        </ul>
+        </li>
+        <li>JavaScript
+        <ul>
+            <li>DOM</li>
+            <li>Events</li>
+            <li>Functions</li>
+        </ul>
+        </li>
+        </ul>
+        <ul id="skills"></ul>
+        <input type="text" id="in" placeholder="Enter new skills">
+        <button type="submit" id="butn">Add Skill</button>
+
+    
+    <hr>
+    <h3>Contact Form</h3>
+    <form>
+        <p>Name:</p>
+        <input type="text">
+        <p>Email:</p>
+        <input type="email">
+        <br>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+    <hr>
+    <h3>Fun Zone</h3>
+    <button id="color">Change Background Color</button>
+    <script>
+        const ul=document.getElementById("skills");
+        const input=document.getElementById("in");
+        const btn=document.getElementById("butn");
+        btn.addEventListener("click",()=>{
+            let li= document.createElement("li");
+            li.textContent=input.value;
+            ul.appendChild(li);
+
+        });
+
+        const col=document.getElementById("color");
+        col.addEventListener("click",()=>{
+            document.body.classList.toggle("a");
+
+        });
+        const data=document.getElementById("fetchdata");
+        let val=1;
+        const tabledata=async()=>{
+            const resp=await fetch("https://jsonplaceholder.typicode.com/users");
+             const cont=await resp.json();
+             cont.forEach((el)=>{
+                let tr=document.createElement("tr");
+                let tdsno=document.createElement("td");
+                let tdname=document.createElement("td");
+                let tdemail=document.createElement("td");
+                tdsno.textContent=val++;
+                tr.appendChild(tdsno);
+                tdname.textContent=el.name;
+                tr.appendChild(tdname);
+                tdemail.textContent=el.email;
+                tr.appendChild(tdemail);
+               // tdcourse.textcontent=el.address;
+               // tr.appendChild(tdcourse);
+                data.appendChild(tr);
+
+            });
+
+        };tabledata();
+    </script>
+</body>
+</html>
