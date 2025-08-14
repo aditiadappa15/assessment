@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Management Assessment</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
+    }
+    h1 {
+        text-align: center;
+        background-color: #2196F3;
+        color: white;
+        padding: 15px;
+    }
+    .actions {
+        padding: 15px;
+        background-color: #f0f0f0;
+    }
+    button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 8px 16px;
+        margin: 5px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    table {
+        border: 1px solid #ddd;
+        border-collapse: collapse;
+        width: 90%;
+        margin: 20px auto;
+    }
+    th, td {
+        padding: 8px;
+        text-align: left;
+        border: 1px solid #ddd;
+    }
+    th {
+        background-color: #4CAF50;
+        color: white;
+    }
+    tr:hover {
+        background-color: lightgray;
+    }
+</style>
+</head>
+<body>
+
+<h1>Student Management Assessment</h1>
+
+<div class="actions">
+    <button onclick="toggleBackground()">Change Background Color</button>
+    <button onclick="toggleTable()">Hide/Show Table</button>
+    <button onclick="filterAge()">Show Age > 20</button>
+    <button onclick="resetTable()">Reset Table</button>
+</div>
+
+<div id="table-container"></div>
+
+<script>
+    const students = [
+        { name: "Amit Sharma", age: 19, course: "B.Tech" },
+        { name: "Priya Verma", age: 22, course: "MCA" },
+        { name: "Rohit Gupta", age: 20, course: "BCA" },
+        { name: "Neha Singh", age: 23, course: "B.Sc" },
+        { name: "Karan Patel", age: 18, course: "B.Com" }
+    ];
+
+    let isBlue = false;
+    let tableVisible = true;
+
+    function renderTable(data) {
+        let container = document.getElementById("table-container");
+        container.innerHTML = "";
+
+        let table = document.createElement("table");
+
+        let thead = document.createElement("thead");
+        let headRow = document.createElement("tr");
+        ["Name", "Age", "Course"].forEach(text => {
+            let th = document.createElement("th");
+            th.textContent = text;
+            headRow.appendChild(th);
+        });
+        thead.appendChild(headRow);
+        table.appendChild(thead);
+
+        let tbody = document.createElement("tbody");
+        data.forEach(student => {
+            let row = document.createElement("tr");
+            Object.values(student).forEach(value => {
+                let td = document.createElement("td");
+                td.textContent = value;
+                row.appendChild(td);
+            });
+            tbody.appendChild(row);
+        });
+        table.appendChild(tbody);
+
+        container.appendChild(table);
+    }
+
+    function toggleBackground() {
+        document.body.style.backgroundColor = isBlue ? "#f8f9fa" : "#e0f7fa";
+        isBlue = !isBlue;
+    }
+
+    function toggleTable() {
+        let container = document.getElementById("table-container");
+        container.style.display = tableVisible ? "none" : "block";
+        tableVisible = !tableVisible;
+    }
+
+    function filterAge() {
+        let filtered = students.filter(s => s.age > 20);
+        renderTable(filtered);
+    }
+
+    function resetTable() {
+        renderTable(students);
+    }
+
+    // Initial render
+    renderTable(students);
+</script>
+
+</body>
+</html>
